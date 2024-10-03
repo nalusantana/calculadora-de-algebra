@@ -1,3 +1,5 @@
+//biblioteca para a segunda funcionalidade 
+
 #ifndef ISB_H
 #define ISB_H
 

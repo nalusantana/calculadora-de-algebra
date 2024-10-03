@@ -16,11 +16,11 @@ int main(){
     while(1){
         int opcao;
         printf(NEGRITO "Digite a opção desejada.\n");
-        printf(NEGRITO "\t1 - "  "Resolução de Sistemas Lineares. (Eliminação de Gauss)\n" SEM_ESTILO);
-        printf(NEGRITO "\t2 - "  "Verificação de Injetividade, Sobretividade e Bijetividade.\n" SEM_ESTILO);
-        printf(NEGRITO "\t3 - "  "Determinação de bases.\n" SEM_ESTILO);
-        printf(NEGRITO "\t4 - "  "Cálculo de autovalores e autovetores.\n" SEM_ESTILO);
-        printf(NEGRITO "\t5 - "  "Diagonalização.\n" SEM_ESTILO);
+        printf("\t1 - "  "Resolução de Sistemas Lineares. (Eliminação de Gauss)\n");
+        printf("\t2 - "  "Verificação de Injetividade, Sobretividade e Bijetividade.\n");
+        printf("\t3 - "  "Determinação de bases.\n");
+        printf("\t4 - "  "Cálculo de autovalores e autovetores.\n");
+        printf("\t5 - "  "Diagonalização.\n" SEM_ESTILO);
 
         printf(NEGRITO "\t0 - "  "Sair\n" SEM_ESTILO);
 

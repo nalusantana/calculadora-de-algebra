@@ -2,6 +2,7 @@
 #include "texto.h"
 
 
+//professor de algebra pediu somente dimensao 2 e 3
 void mainBases(){
     limparConsole();
     int dim;
@@ -22,10 +23,11 @@ void mainBases(){
     else if(dim == 3) bases3();
 }
 
+//le os vetores e confere se sao bases na dimensao 2
 void bases2() {
     float matriz[2][2];
 
-    printf(NEGRITO "Digite os elementos dos vetores 2D, um vetor por vez (linhas):\n" SEM_ESTILO);
+    printf(NEGRITO "Digite os elementos dos vetores de R2, um vetor por vez (linhas):\n" SEM_ESTILO);
     for (int i = 0; i < 2; i++) {
         printf("Digite os elementos do vetor %d:\n", i + 1);
         for (int j = 0; j < 2; j++) {
@@ -33,6 +35,7 @@ void bases2() {
         }
     }
 
+    //calcula o determinante
     float det = (matriz[0][0] * matriz[1][1]) - (matriz[0][1] * matriz[1][0]);
 
     printVetores2(matriz);
@@ -46,17 +49,19 @@ void bases2() {
     perguntarOpcao();
 }
 
+
+//le os vetores e confere se sao bases na dimensao 3
 void bases3() {
     float matriz[3][3];
 
-    printf(NEGRITO "Digite os elementos dos vetores 3D, um vetor por vez (linhas):\n" SEM_ESTILO);
+    printf(NEGRITO "Digite os elementos dos vetores de R3, um vetor por vez (linhas):\n" SEM_ESTILO);
     for (int i = 0; i < 3; i++) {
         printf("Digite os elementos do vetor %d:\n", i + 1);
         for (int j = 0; j < 3; j++) {
             scanf("%f", &matriz[i][j]);
         }
     }
-
+    //calcula o determinante
     float det = matriz[0][0] * (matriz[1][1] * matriz[2][2] - matriz[1][2] * matriz[2][1])
               - matriz[0][1] * (matriz[1][0] * matriz[2][2] - matriz[1][2] * matriz[2][0])
               + matriz[0][2] * (matriz[1][0] * matriz[2][1] - matriz[1][1] * matriz[2][0]);
@@ -72,6 +77,7 @@ void bases3() {
     perguntarOpcao();
 }
 
+//funcao de voltar ao menu ou usar a funcionalidade novamente
 void perguntarOpcao(){
     int opcao;
     do{
@@ -88,17 +94,19 @@ void perguntarOpcao(){
     if(opcao == 1) mainBases();
 }
 
+//print dos vetores inseridos um abaixo do outro para dimensao 2
 void printVetores2(float matriz[2][2]) {
     printf(NEGRITO "Vetores inseridos (R2):\n" SEM_ESTILO);
     for (int i = 0; i < 2; i++) {
         printf("[ ");
         for (int j = 0; j < 2; j++) {
-            printf("%6.2f ", matriz[i][j]);  // Exibe cada valor com 2 casas decimais
+            printf("%6.2f ", matriz[i][j]);  //exibe cada valor com 2 casas decimais
         }
-        printf("]\n");  // Fecha a linha de cada vetor
+        printf("]\n");  //fecha a linha de cada vetor
     }
 }
 
+//print dos vetores inseridos um abaixo do outro para dimensao 3
 void printVetores3(float matriz[3][3]) {
     printf(NEGRITO "Vetores inseridos (R3):\n" SEM_ESTILO);
     for (int i = 0; i < 3; i++) {

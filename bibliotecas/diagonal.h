@@ -1,7 +1,8 @@
+//biblioteca para a quinta funcionalidade
+
 #ifndef DIAGONAL_H
 #define DIAGONAL_H
 
-//include de bibliotecas necessarias e a texto.h criada
 #include <stdio.h>
 #include <math.h>
 #include <float.h>

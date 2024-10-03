@@ -1,6 +1,6 @@
 #include "gauss.h"
 
-
+//aqui e a funcao principal que puxa as outras
 void eliminacaoGauss(){
     int quantidadeEquacoes, quantidadeVariaveis, sn;
     
@@ -93,23 +93,25 @@ int checarSePossivel(int quantidadeEquacoes, int quantidadeVariaveis){
     return opcao;
 }
 
+//verifica se o sistema foi realmente resolvido, se tiver uma linha com todos os elementos sendo 0, e um sistema inconsistente
 int verificarInconsistencia(int linha, int coluna,double matriz[linha][coluna]) {
     for (int i = 0; i < linha; i++) {
         int todos_zeros = 1;
         for (int j = 0; j < linha; j++) {
             if (matriz[i][j] != 0) {
-                todos_zeros = 0;  // Há pelo menos um elemento não nulo na linha
+                todos_zeros = 0; 
                 break;
             }
         }
-        // Se todos os coeficientes forem zero, mas o termo constante for diferente de zero
+        //se todos os coeficientes forem zero, mas o termo constante for diferente de zero
         if (todos_zeros && matriz[i][linha] != 0) {
-            return 1;  // Sistema inconsistente
+            return 1;  //sistema inconsistente
         }
     }
-    return 0;  // Sistema pode ter solução
+    return 0;  //sistema pode ter solucao
 }
 
+//print final do resultado
 void printVariaveis(int linha, int coluna, double matriz[linha][coluna]){
     printf("Soluções para as variáveis:\n");
     for (int i = 0; i < linha; i++) {
@@ -138,6 +140,7 @@ void preencherMatriz(int linha, int coluna, double matriz[linha][coluna]){
     imprimirMatrizComoEquacao(linha, coluna, matriz, -1, -1);
 }
 
+//aqui apenas aplica o teorema, zera os valores abaixo da diagonal principal, define a diagonal principal com todos os valores igual a 1 e zera os valores acima da diagonal principal
 void calcularEliminacaoGauss(int linha, int coluna, double matriz[linha][coluna]) {
     limparConsole();
     for (int i = 0; i < linha; i++) {
@@ -177,6 +180,7 @@ void calcularEliminacaoGauss(int linha, int coluna, double matriz[linha][coluna]
 
 }
 
+//apenas para formatar como sistema de equacao para ficar mais agradavel ao usuario
 void imprimirMatrizComoEquacao(int linha, int coluna, double matriz[linha][coluna], int maxI, int maxJ) {
     for(int i = 0; i < linha; i++) {
         for(int j = 0; j < coluna; j++) {      // se for o simbolo indicando onde esta sendo inserido
@@ -194,15 +198,15 @@ void imprimirMatrizComoEquacao(int linha, int coluna, double matriz[linha][colun
             
 
             if(matriz[i][j] == HUGE_VAL){   // checa se o valor nao foi inserido ainda
-                if(j == coluna - 1){           // se for a colunauna de resultados
+                if(j == coluna - 1){           // se for a coluna de resultados
                     printf("= %s\n", simbolo);
-                }else{                      // se for a colunauna de coeficientes
+                }else{                      // se for a coluna de coeficientes
                     printf("%s%c ", simbolo, VARIAVEIS[j]);
                 }
             } else {
-                if(j == coluna - 1){           // se for a colunauna de resultados
+                if(j == coluna - 1){           // se for a coluna de resultados
                     printf("= %8.2lf\n", matriz[i][coluna-1]);
-                }else{                      // se for a colunauna de coeficientes
+                }else{                      // se for a coluna de coeficientes
                     printf("%8.2lf%c ", matriz[i][j], VARIAVEIS[j]);
                 }
             }
@@ -210,9 +214,10 @@ void imprimirMatrizComoEquacao(int linha, int coluna, double matriz[linha][colun
     }
 }
 
+//essa so mostra como ficou a matriz com os inputs do usuario, de forma mais agradavel
 void imprimirMatriz(int linha, int coluna, double matriz[linha][coluna]) {
 
-    // "Cabecalho" da matriz
+    // "cabecalho" da matriz
     limparConsole();
     sleep(0.8);
     printf("┌ ");
@@ -229,7 +234,7 @@ void imprimirMatriz(int linha, int coluna, double matriz[linha][coluna]) {
         printf(" |\n");
     }
 
-    // "Rodape" da matriz
+    // "rodape" da matriz
     printf("└ ");
     for(int i = 0; i < coluna; i++) {
         printf("         ");        // 9 espacos (8 do numero + 1 do espaco)
@@ -239,10 +244,11 @@ void imprimirMatriz(int linha, int coluna, double matriz[linha][coluna]) {
     sleep(0.8);
 }
 
+//coloca valor extremamente alto para indicar que nao foi preenchido
 void inicializarMatriz(int linha, int coluna, double matriz[linha][coluna]){
     for(int i = 0; i < linha; i++) {
         for(int j = 0; j < coluna; j++) {
-            matriz[i][j] = HUGE_VAL;    // valor extremamente alto para indicar que nao foi preenchido
+            matriz[i][j] = HUGE_VAL;    
         }
     }
 }

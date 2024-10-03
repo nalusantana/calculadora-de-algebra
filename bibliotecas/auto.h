@@ -1,7 +1,8 @@
+//biblioteca da quarta funcionalidade
+
 #ifndef AUTO_H
 #define AUTO_H
 
-//include de bibliotecas necessarias e a texto.h criada
 #include <stdio.h>
 #include <math.h>
 #include <float.h>

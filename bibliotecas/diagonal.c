@@ -6,6 +6,7 @@ void mainDiagonal() {
     limparConsole();
     double matriz[2][2];
 
+    //faz somente 2x2
     printf("Digite os elementos da matriz 2x2 (linhas):\n");
     for (int i = 0; i < 2; i++) {
         printf("Digite os elementos da linha %d:\n", i + 1);
@@ -22,8 +23,7 @@ void diagonalizarMatriz(double matriz[2][2]) {
     double autovalores[2];
     double autovetores[2][2];
 
-    // Cálculo dos autovalores
-    // Supondo que você tenha uma função para calcular os autovalores
+    //funcao de calculo de autovalores feita em outra biblioteca
     calcularAutovalores2(matriz, autovalores);
 
     double lambda1 = autovalores[0], lambda2 = autovalores[1];
@@ -33,6 +33,7 @@ void diagonalizarMatriz(double matriz[2][2]) {
     printf("\tλ1 = %.2lf\n", lambda1);
     printf("\tλ2 = %.2lf\n" SEM_ESTILO, lambda2);
     
+    //autovetores nao tem funcao, foi feito na mao direto no print e guarda na matriz de autovetor
     printf(NEGRITO "\nAutovetores:\n" SEM_ESTILO);
     if (matriz[0][1] != 0) {
         printf("\tAutovetor associado a"NEGRITO" λ1: [1, %.2lf]\n" SEM_ESTILO, (lambda1 - matriz[0][0]) / matriz[0][1]);
@@ -50,21 +51,22 @@ void diagonalizarMatriz(double matriz[2][2]) {
         autovetores[1][1] = 0;
     }
     
-    // Criar a matriz diagonal
+    //criar a matriz diagonal
     double matrizDiagonal[2][2] = {
         {autovalores[0], 0},
         {0, autovalores[1]}
     };
 
-    // Exibir a matriz diagonal
+    //mostrar a matriz diagonal
     printf("\nMatriz Diagonal:\n");
     printMatriz2(matrizDiagonal);
 
-    // Exibir a matriz de mudança de base
+    //mostrar a matriz de mudança de base
     printf("\nMatriz de Mudança de Base (autovetores):\n");
     printMatriz2(autovetores);
 }
 
+//funcao de voltar para o menu ou usar de novo
 void repetir(){
     int opcao;
     do{

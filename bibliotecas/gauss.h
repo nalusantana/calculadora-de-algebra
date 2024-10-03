@@ -1,7 +1,8 @@
+//biblioteca para aa primeira funcionalidade
+
 #ifndef GAUSS_H
 #define GAUSS_H
 
-//include de bibliotecas necessarias e a texto.h criada
 #include <stdio.h>
 #include <math.h>
 #include <float.h>

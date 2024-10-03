@@ -5,7 +5,6 @@
 
 void mainAuto(){
     limparConsole();
-    //criacao de variavel int para armazenar a dimensao da matriz
     int dim;
     do{
         printf("Escolha a dimensão da matriz (2 ou 3) ou 0 para retornar ao menu: \n");
@@ -61,7 +60,6 @@ void autovaloresAutovetores2() {
         printf("\tAutovetor associado a" NEGRITO" λ2: [1, 0]\n" SEM_ESTILO);
     }
     
-    //funcao que volta pro menu ou usa a funcionalidade de novo
     retornarOuRefazer();
 }
 
@@ -87,7 +85,7 @@ void autovaloresAutovetores3() {
 }
 
 void calcularAutovalores2(double matriz[2][2], double autovalores[2]) {
-    // Cálculo do traço e determinante
+    //calculo do traco e determinante
     double a = matriz[0][0], b = matriz[0][1], c = matriz[1][0], d = matriz[1][1];
     double traco = a + d;
     double determinante = (a * d) - (b * c);
@@ -104,6 +102,7 @@ void calcularAutovalores2(double matriz[2][2], double autovalores[2]) {
     
 }
 
+//infelizmente nao esta funcionando, decidi focar em manipulacao de arquivos
 void calcularAutovalores3(double matriz[3][3]) {
     printf("Cálculo de autovalores para matrizes 3x3 ainda não implementado.\n");
 }
@@ -124,58 +123,54 @@ void retornarOuRefazer(){
     if(opcao == 1) mainAuto();
 }
 
-
+//funciona mas precisa da anterior, e o print padrao que estamos usando no codigo todo sempre que usamos matrizes
 void printMatriz3(double matriz[3][3]) {
     limparConsole();
     sleep(0.8);
     printf("┌ ");
     for(int i = 0; i < 3; i++) {
-        printf("         "); // 9 espaços (8 do número + 1 do espaço)
+        printf("         "); 
     }
-    printf("   ┐\n"); // 2 espaços extras pelo "| "
+    printf("   ┐\n"); 
 
     for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 3; j++) {
             if(j == 0) printf("| ");
-            // if(j == 3 - 1) printf("    |");
             printf("%8.4lf ", matriz[i][j]);
         }
         printf("   |\n");
     }
 
-    // "Rodapé" da matriz
     printf("└ ");
     for(int i = 0; i < 3; i++) {
-        printf("         "); // 9 espaços (8 do número + 1 do espaço)
+        printf("         ");
     }
-    printf("   ┘\n"); // 2 espaços extras pelo "| "
+    printf("   ┘\n");
     
     sleep(0.8);
 }
 
+//print padrao da matriz quadrada dimensao 2
 void printMatriz2(double matriz[2][2]) {
     sleep(0.8);
     printf("┌ ");
     for(int i = 0; i < 2; i++) {
-        printf("         "); // 9 espaços (8 do número + 1 do espaço)
+        printf("         "); 
     }
-    printf("   ┐\n"); // 2 espaços extras pelo "| "
-
+    printf("   ┐\n"); 
     for(int i = 0; i < 2; i++) {
         for(int j = 0; j < 2; j++) {
             if(j == 0) printf("| ");
-            // if(j == 2 - 1) printf("    |");
             printf("%8.4lf ", matriz[i][j]);
         }
         printf("   |\n");
     }
 
-    // "Rodapé" da matriz
     printf("└ ");
     for(int i = 0; i < 2; i++) {
-        printf("         "); // 9 espaços (8 do número + 1 do espaço)
+        printf("         ");
     }
-    printf("   ┘\n"); // 2 espaços extras pelo "| "
+    printf("   ┘\n");
     
     sleep(0.8);
 }

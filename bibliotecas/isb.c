@@ -1,50 +1,49 @@
 #include "isb.h"
 
-
-
-void mainISB(){
-    // LER MATRIZ
-    int quantidadeEquacoes, quantidadeVariaveis;
+void 
+mainISB(){
+    int dim;
     
     limparConsole();
-    printf(NEGRITO "Digite o número de equações e variáveis (Max: %d, %d respectivamente).\n" SEM_ESTILO, MAXIMO_EQUACOES, MAXIMO_VARIAVEIS);
-    scanf("%d %d", &quantidadeEquacoes, &quantidadeVariaveis);
+    printf(NEGRITO "Digite a dimensão da matriz.\n" SEM_ESTILO);
+    scanf("%d", &dim);
     
-    int linha = quantidadeEquacoes, coluna = quantidadeVariaveis;
-    double matriz[linha][coluna];
+    double matriz[dim][dim];
 
-    lerMatriz(linha, coluna, matriz);
+    lerMatriz(dim, dim, matriz);
+
     limparConsole();
-    // VERIFICAR DETERMINANTE
-    double det = determinante(coluna, matriz);  // Mudei para usar a quantidade de variáveis
+    //calcular determinante
+    double det = determinante(dim, matriz);  // Mudei para usar a quantidade de variáveis
 
-    // VERIFICAR POSTO
-    
-    int posto = calcularPosto(linha, coluna, matriz);
+    //calcular posto
+    int posto = calcularPosto(dim, dim, matriz);
 
     printf(NEGRITO "Posto: %d   Determinante: %lf\n" SEM_ESTILO, posto, det);
 
-    // VERIFICAÇÕES DE SOBRE, INJ E BIJ
-    if (det != 0 && linha == coluna) {
+    //verificacao de injetividade (determinante != 0)
+    if (det != 0) {
         printf("A matriz representa uma transformação injetiva.\n");
     } else {
         printf("A matriz NÃO representa uma transformação injetiva.\n");
     }
 
-    // Verificação de Sobretividade (posto == número de variáveis)
-    if (posto == coluna) {
+    // verificação de sobretividade (posto == número de variáveis)
+    if (posto == dim) {
         printf("A matriz representa uma transformação sobrejetiva.\n");
     } else {
         printf("A matriz NÃO representa uma transformação sobrejetiva.\n");
     }
 
-    // Verificação de Bijetividade (determinante != 0 e posto == número de variáveis)
-    if (det != 0 && posto == coluna) {
+    // verificação de bijetividade (determinante != 0 e posto == número de variáveis)
+    if (det != 0 && posto == dim) {
         printf("A matriz representa uma transformação bijetiva.\n");
     } else {
         printf("A matriz NÃO representa uma transformação bijetiva.\n");
     }
-    int temporario;
+
+    //para voltar ao menu ou usar novamente
+    int temporario = 5;
     while(temporario != 1 && temporario != 0){
         printf("\n(Pressione 1 para utilizar a funcionalidade novamente ou 0 para retornar ao menu.)\n");
         scanf("%d", &temporario);
@@ -59,9 +58,10 @@ void mainISB(){
     }
 }
 
+//le a matriz inserida
 void lerMatriz(int linha, int coluna, double matriz[linha][coluna]) {
     limparConsole();
-    printf(NEGRITO "Digite os elementos da matriz de coeficiente (%dx%d):\n" SEM_ESTILO, linha, coluna);
+    printf(NEGRITO "Digite os elementos da matriz (%dx%d):\n" SEM_ESTILO, linha, coluna);
     for (int i = 0; i < linha; i++) {
         for (int j = 0; j < coluna; j++) {
             scanf("%lf", &matriz[i][j]);
@@ -69,26 +69,30 @@ void lerMatriz(int linha, int coluna, double matriz[linha][coluna]) {
     }
 }
 
-// Função auxiliar para calcular o determinante de uma matriz quadrada usando expansão de Laplace
+// função auxiliar para calcular o determinante de uma matriz quadrada usando expansão de Laplace
 double determinante(int n, double matriz[n][n]) {
     double det = 0;
 
     if (n == 1) {
-        return matriz[0][0];  // Caso base: determinante de uma matriz 1x1
+        // caso base: determinante de uma matriz 1x1
+        return matriz[0][0];  
     }
 
     if (n == 2) {
-        return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0];  // Caso base: determinante de uma matriz 2x2
+        // caso base: determinante de uma matriz 2x2
+        return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0];  
     }
 
     double submatriz[n-1][n-1];
 
     for (int x = 0; x < n; x++) {
-        int subi = 0;  // Índice para linhas da submatriz
+        // indice para linhas da submatriz
+        int subi = 0; 
         for (int i = 1; i < n; i++) {
-            int subj = 0;  // Índice para colunas da submatriz
-            for (int j = 0; j < n; j++) {
-                if (j == x) {
+            // indice para colunas da submatriz
+            int subj = 0;  
+            for (int j = 0; j < n; j++) {                                    //aqui eu tive dificuldade, tive que pedir ajuda, mas basicamente calcula o determinante 
+                if (j == x) {                                                //recursivamente, ou seja, chamando ela mesma ate chegar no caso base
                     continue;
                 }
                 submatriz[subi][subj] = matriz[i][j];
@@ -102,12 +106,12 @@ double determinante(int n, double matriz[n][n]) {
     return det;
 }
 
-// Função para calcular o posto da matriz usando eliminação de Gauss
+// funcao para calcular o posto da matriz usando eliminacao de Gauss
 int calcularPosto(int linha, int coluna, double matriz[linha][coluna]) {
     int rank = coluna;
 
     for (int row = 0; row < rank; row++) {
-        // Se a linha não é zero, fazer eliminação
+        //se a linha nao e zero, fazer eliminacao
         if (matriz[row][row]) {
             for (int col = 0; col < linha; col++) {
                 if (col != row) {
@@ -118,7 +122,7 @@ int calcularPosto(int linha, int coluna, double matriz[linha][coluna]) {
                 }
             }
         } else {
-            // Se a linha é zero, procurar uma linha não nula para trocar
+            //se a linha e zero, procurar uma linha nao nula para trocar
             int reduce = 1;
             for (int i = row + 1; i < linha; i++) {
                 if (matriz[i][row]) {

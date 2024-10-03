@@ -1,3 +1,5 @@
+//biblioteca para texto
+
 #ifndef TEXTO_H
 #define TEXTO_H
 
