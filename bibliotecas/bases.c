@@ -75,7 +75,7 @@ void bases3() {
 void perguntarOpcao(){
     int opcao;
     do{
-        printf(NEGRITO "Voce deseja repetir o metodo (1) ou voltar ao menu principal (0)?" SEM_ESTILO);
+        printf(NEGRITO "\nVocê deseja repetir o método ou voltar ao menu principal? (Sim = 1 e Não = 0)" SEM_ESTILO);
         scanf("%d", &opcao);
 
         if(opcao == 0) return;
