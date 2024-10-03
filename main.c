@@ -20,7 +20,7 @@ int main(){
         printf(NEGRITO "\t2 - "  "Verificação de Injetividade, Sobretividade e Bijetividade.\n" SEM_ESTILO);
         printf(NEGRITO "\t3 - "  "Determinação de bases.\n" SEM_ESTILO);
         printf(NEGRITO "\t4 - "  "Cálculo de autovalores e autovetores.\n" SEM_ESTILO);
-        printf(APAGADO "\t5 - "  "Diagonalização. (PARA FAZER)\n" SEM_ESTILO);
+        printf(NEGRITO "\t5 - "  "Diagonalização.\n" SEM_ESTILO);
 
         printf(NEGRITO "\t0 - "  "Sair\n" SEM_ESTILO);
 

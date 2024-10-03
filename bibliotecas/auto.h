@@ -12,7 +12,7 @@
 void mainAuto();
 void autovaloresAutovetores2();
 void autovaloresAutovetores3();
-void calcularAutovalores2(double matriz[2][2]);
+void calcularAutovalores2(double matriz[2][2], double* autovalores);
 void calcularAutovalores3(double matriz[3][3]);
 void retornarOuRefazer();
 void printMatriz2(double matriz[2][2]);

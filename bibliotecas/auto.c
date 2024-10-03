@@ -5,6 +5,7 @@
 
 void mainAuto(){
     limparConsole();
+    //criacao de variavel int para armazenar a dimensao da matriz
     int dim;
     do{
         printf("Escolha a dimensão da matriz (2 ou 3) ou 0 para retornar ao menu: \n");
@@ -13,7 +14,7 @@ void mainAuto(){
         if(dim == 0) return;
         if(dim != 2 && dim != 3) {
             limparConsole();
-            printf(VERMELHO NEGRITO "Dimensão deve ser 2 ou 3!\n" SEM_ESTILO);
+            printf(VERMELHO NEGRITO "A dimensão deve ser 2 ou 3!\n" SEM_ESTILO);
         }
     } while(dim != 2 && dim != 3);
 
@@ -23,10 +24,11 @@ void mainAuto(){
     else if(dim == 3) autovaloresAutovetores3();
 }
 
+//funcao que calcula autovetores dimensao 2
 void autovaloresAutovetores2() {
     double matriz[2][2];
 
-    printf(NEGRITO "Digite os elementos da matriz 2x2, linha por linha:\n" SEM_ESTILO);
+    printf(NEGRITO "Digite os vetores que formam a matriz 2x2, linha por linha:\n" SEM_ESTILO);
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 2; j++) {
             scanf("%lf", &matriz[i][j]);
@@ -34,12 +36,36 @@ void autovaloresAutovetores2() {
     }
     limparConsole();
 
+    printf(NEGRITO "Matriz inserida: \n" SEM_ESTILO);
+    //print unico para matriz 2x2 sem bugar as laterais que desenhei
     printMatriz2(matriz);
-    calcularAutovalores2(matriz);
+
+    double autovalores[2];
+
+    //calculo dos autovalores na dimensao 2 > valores sao guardados dentro do vetor "autovalores"
+    calcularAutovalores2(matriz, autovalores);
+
+    double lambda1 = autovalores[0], lambda2 = autovalores[1];
+
+    printf(NEGRITO "\nAutovalores:\n" );
+    printf("\tλ1 = %.2lf\n", lambda1);
+    printf("\tλ2 = %.2lf\n" SEM_ESTILO, lambda2);
+
+    //calculo dos autovetores
+    printf(NEGRITO "\nAutovetores:\n" SEM_ESTILO);
+    if (matriz[0][1] != 0) {
+        printf("\tAutovetor associado a"NEGRITO" λ1: [1, %.2lf]\n" SEM_ESTILO, (lambda1 - matriz[0][0]) / matriz[0][1]);
+        printf("\tAutovetor associado a"NEGRITO" λ2: [1, %.2lf]\n" SEM_ESTILO, (lambda2 - matriz[0][0]) / matriz[0][1]);
+    } else {
+        printf("\tAutovetor associado a" NEGRITO" λ1: [1, 0]\n" SEM_ESTILO);
+        printf("\tAutovetor associado a" NEGRITO" λ2: [1, 0]\n" SEM_ESTILO);
+    }
     
+    //funcao que volta pro menu ou usa a funcionalidade de novo
     retornarOuRefazer();
 }
 
+//funcao que calcula autovetores dimensao 3
 void autovaloresAutovetores3() {
     double matriz[3][3];
 
@@ -51,13 +77,16 @@ void autovaloresAutovetores3() {
     }
     limparConsole();
 
+    printf(NEGRITO "Matriz inserida: \n" SEM_ESTILO);
+    //print matriz 3x3
     printMatriz3(matriz);
+    //calculo dos autovalores na dimensao 3 > valores sao guardados dentro do vetor "autovalores"
     calcularAutovalores3(matriz);
     
     retornarOuRefazer();
 }
 
-void calcularAutovalores2(double matriz[2][2]) {
+void calcularAutovalores2(double matriz[2][2], double autovalores[2]) {
     // Cálculo do traço e determinante
     double a = matriz[0][0], b = matriz[0][1], c = matriz[1][0], d = matriz[1][1];
     double traco = a + d;
@@ -70,22 +99,9 @@ void calcularAutovalores2(double matriz[2][2]) {
         return;
     }
 
-    double lambda1 = (traco + sqrt(discriminante)) / 2;
-    double lambda2 = (traco - sqrt(discriminante)) / 2;
-
-    printf(NEGRITO "\nAutovalores:\n" );
-    printf("\tλ1 = %.2lf\n", lambda1);
-    printf("\tλ2 = %.2lf\n" SEM_ESTILO, lambda2);
-
-    // Cálculo dos autovetores
-    printf(NEGRITO "\nAutovetores:\n" SEM_ESTILO);
-    if (b != 0) {
-        printf("\tAutovetor associado a"NEGRITO" λ1: [1, %.2lf]\n" SEM_ESTILO, (lambda1 - a) / b);
-        printf("\tAutovetor associado a"NEGRITO" λ2: [1, %.2lf]\n" SEM_ESTILO, (lambda2 - a) / b);
-    } else {
-        printf("\tAutovetor associado a" NEGRITO" λ1: [1, 0]\n" SEM_ESTILO);
-        printf("\tAutovetor associado a" NEGRITO" λ2: [1, 0]\n" SEM_ESTILO);
-    }
+    autovalores[0] = (traco + sqrt(discriminante)) / 2;
+    autovalores[1] = (traco - sqrt(discriminante)) / 2;
+    
 }
 
 void calcularAutovalores3(double matriz[3][3]) {
@@ -111,7 +127,6 @@ void retornarOuRefazer(){
 
 void printMatriz3(double matriz[3][3]) {
     limparConsole();
-    printf(NEGRITO "Matriz inserida: \n" SEM_ESTILO);
     sleep(0.8);
     printf("┌ ");
     for(int i = 0; i < 3; i++) {
@@ -139,8 +154,6 @@ void printMatriz3(double matriz[3][3]) {
 }
 
 void printMatriz2(double matriz[2][2]) {
-    limparConsole();
-    printf(NEGRITO "Matriz inserida: \n" SEM_ESTILO);
     sleep(0.8);
     printf("┌ ");
     for(int i = 0; i < 2; i++) {
