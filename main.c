@@ -6,6 +6,9 @@
 #include "bibliotecas/gauss.h"
 #include "bibliotecas/texto.h"
 #include "bibliotecas/isb.h"
+#include "bibliotecas/bases.h"
+#include "bibliotecas/auto.h"
+#include "bibliotecas/diagonal.h"
 
 
 int main(){
@@ -15,8 +18,8 @@ int main(){
         printf(NEGRITO "Digite a opção desejada.\n");
         printf(NEGRITO "\t1 - "  "Resolução de Sistemas Lineares. (Eliminação de Gauss)\n" SEM_ESTILO);
         printf(NEGRITO "\t2 - "  "Verificação de Injetividade, Sobretividade e Bijetividade.\n" SEM_ESTILO);
-        printf(APAGADO "\t3 - "  "Determinação de bases. (PARA FAZER)\n" SEM_ESTILO);
-        printf(APAGADO "\t4 - "  "Cálculo de autovalores e autovetores. (PARA FAZER)\n" SEM_ESTILO);
+        printf(NEGRITO "\t3 - "  "Determinação de bases.\n" SEM_ESTILO);
+        printf(NEGRITO "\t4 - "  "Cálculo de autovalores e autovetores.\n" SEM_ESTILO);
         printf(APAGADO "\t5 - "  "Diagonalização. (PARA FAZER)\n" SEM_ESTILO);
 
         printf(NEGRITO "\t0 - "  "Sair\n" SEM_ESTILO);
@@ -31,6 +34,18 @@ int main(){
                 break;
             case 2:
                 mainISB();
+                limparConsole();
+                break;
+            case 3:
+                mainBases();
+                limparConsole();
+                break;
+            case 4:
+                mainAuto();
+                limparConsole();
+                break;
+            case 5:
+                mainDiagonal();
                 limparConsole();
                 break;
             case 0:
