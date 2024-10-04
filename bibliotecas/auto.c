@@ -1,86 +1,122 @@
 #include "auto.h"
 #include "texto.h"
-
-
+#include "arquivo.h"
 
 void mainAuto(){
     limparConsole();
-    int dim;
-    do{
-        printf("Escolha a dimensão da matriz (2 ou 3) ou 0 para retornar ao menu: \n");
-        scanf("%d", &dim);
+    int dim, opcao;
+    double matriz2x2[2][2];
+    double matriz3x3[3][3];
 
-        if(dim == 0) return;
-        if(dim != 2 && dim != 3) {
-            limparConsole();
-            printf(VERMELHO NEGRITO "A dimensão deve ser 2 ou 3!\n" SEM_ESTILO);
+    // Perguntar se vai ler o arquivo ou digitar na mão
+    printf("Você deseja:\n");
+    printf("1. Inserir a matriz manualmente\n");
+    printf("2. Ler a matriz de um arquivo\n");
+    printf("Digite sua opção: ");
+    scanf("%d", &opcao);
+
+    if (opcao == 2) {
+        // Código para ler o arquivo
+        char nomeArquivo[100];
+        printf("Digite o nome do arquivo (incluindo a extensão .txt): ");
+        scanf("%s", nomeArquivo);
+
+
+        // Ler a dimensão do arquivo
+        int linhas, colunas;
+        leDimensoes(&linhas, &colunas, nomeArquivo);
+        dim = linhas;
+        if (linhas == 2 && colunas == 2) {
+            leMatriz(linhas, colunas, matriz2x2, nomeArquivo);
+            printMatriz2(matriz2x2);
+            autovaloresAutovetores2(matriz2x2);
+        } else if (linhas == 3 && colunas == 3) {
+            leMatriz(linhas, colunas, matriz3x3, nomeArquivo);
+            printMatriz3(matriz3x3);
+            autovaloresAutovetores3(matriz3x3);
+        } else {
+            printf(VERMELHO "O arquivo não contém uma matriz quadrada válida (2x2 ou 3x3).\n" SEM_ESTILO);
         }
-    } while(dim != 2 && dim != 3);
+    } else if (opcao == 1) {
+        // Código para inserir manualmente
+        do{
+            printf("Escolha a dimensão da matriz (2 ou 3) ou 0 para retornar ao menu: \n");
+            scanf("%d", &dim);
 
-    limparConsole();
+            if(dim == 0) return;
+            if(dim != 2 && dim != 3) {
+                limparConsole();
+                printf(VERMELHO NEGRITO "A dimensão deve ser 2 ou 3!\n" SEM_ESTILO);
+            }
+        } while(dim != 2 && dim != 3);
 
-    if(dim == 2) autovaloresAutovetores2();
-    else if(dim == 3) autovaloresAutovetores3();
-}
+        limparConsole();
 
-//funcao que calcula autovetores dimensao 2
-void autovaloresAutovetores2() {
-    double matriz[2][2];
-
-    printf(NEGRITO "Digite os vetores que formam a matriz 2x2, linha por linha:\n" SEM_ESTILO);
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 2; j++) {
-            scanf("%lf", &matriz[i][j]);
+        if(dim == 2) {
+            printf(NEGRITO "Digite os elementos da matriz 2x2, linha por linha:\n" SEM_ESTILO);
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    scanf("%lf", &matriz2x2[i][j]);
+                }
+            }
+            printMatriz2(matriz2x2);
+            autovaloresAutovetores2(matriz2x2);
+        }
+        else if(dim == 3) {
+            printf(NEGRITO "Digite os elementos da matriz 3x3, linha por linha:\n" SEM_ESTILO);
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    scanf("%lf", &matriz3x3[i][j]);
+                }
+            }
+            printMatriz3(matriz3x3);
+            autovaloresAutovetores3(matriz3x3);
         }
     }
-    limparConsole();
 
-    printf(NEGRITO "Matriz inserida: \n" SEM_ESTILO);
-    //print unico para matriz 2x2 sem bugar as laterais que desenhei
-    printMatriz2(matriz);
+    // Perguntar se deseja salvar a matriz
+    printf("Você deseja salvar a matriz em um arquivo? (1 = Sim, 0 = Não): ");
+    scanf("%d", &opcao);
 
+    if(opcao == 1) {
+        char nomeArquivoSalvar[100];
+        printf("Digite o nome do arquivo para salvar (incluindo a extensão .txt): ");
+        scanf("%s", nomeArquivoSalvar);
+
+        if(dim == 2) {
+            salvaMatriz(2, 2, matriz2x2, nomeArquivoSalvar);
+        } else if(dim == 3) {
+            salvaMatriz(3, 3, matriz3x3, nomeArquivoSalvar);
+        }
+    }
+
+    retornarOuRefazer();
+}
+
+// Função que calcula autovalores e autovetores para dimensão 2
+void autovaloresAutovetores2(double matriz[2][2]) {
     double autovalores[2];
-
-    //calculo dos autovalores na dimensao 2 > valores sao guardados dentro do vetor "autovalores"
     calcularAutovalores2(matriz, autovalores);
 
     double lambda1 = autovalores[0], lambda2 = autovalores[1];
 
-    printf(NEGRITO "\nAutovalores:\n" );
+    printf(NEGRITO "\nAutovalores:\n");
     printf("\tλ1 = %.2lf\n", lambda1);
     printf("\tλ2 = %.2lf\n" SEM_ESTILO, lambda2);
 
-    //calculo dos autovetores
     printf(NEGRITO "\nAutovetores:\n" SEM_ESTILO);
     if (matriz[0][1] != 0) {
-        printf("\tAutovetor associado a"NEGRITO" λ1: [1, %.2lf]\n" SEM_ESTILO, (lambda1 - matriz[0][0]) / matriz[0][1]);
-        printf("\tAutovetor associado a"NEGRITO" λ2: [1, %.2lf]\n" SEM_ESTILO, (lambda2 - matriz[0][0]) / matriz[0][1]);
+        printf("\tAutovetor associado a" NEGRITO " λ1: [1, %.2lf]\n" SEM_ESTILO, (lambda1 - matriz[0][0]) / matriz[0][1]);
+        printf("\tAutovetor associado a" NEGRITO " λ2: [1, %.2lf]\n" SEM_ESTILO, (lambda2 - matriz[0][0]) / matriz[0][1]);
     } else {
-        printf("\tAutovetor associado a" NEGRITO" λ1: [1, 0]\n" SEM_ESTILO);
-        printf("\tAutovetor associado a" NEGRITO" λ2: [1, 0]\n" SEM_ESTILO);
+        printf("\tAutovetor associado a" NEGRITO " λ1: [1, 0]\n" SEM_ESTILO);
+        printf("\tAutovetor associado a" NEGRITO " λ2: [1, 0]\n" SEM_ESTILO);
     }
-    
-    retornarOuRefazer();
 }
 
-//funcao que calcula autovetores dimensao 3
-void autovaloresAutovetores3() {
-    double matriz[3][3];
-
-    printf(NEGRITO "Digite os elementos da matriz 3x3, linha por linha:\n" SEM_ESTILO);
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            scanf("%lf", &matriz[i][j]);
-        }
-    }
-    limparConsole();
-
-    printf(NEGRITO "Matriz inserida: \n" SEM_ESTILO);
-    //print matriz 3x3
-    printMatriz3(matriz);
-    //calculo dos autovalores na dimensao 3 > valores sao guardados dentro do vetor "autovalores"
-    calcularAutovalores3(matriz);
-    
+// Função para cálculo dos autovalores de matriz 3x3 (ainda não implementado)
+void autovaloresAutovetores3(double matriz[3][3]) {
+    printf("Cálculo de autovalores para matrizes 3x3 ainda não implementado.\n");
     retornarOuRefazer();
 }
 

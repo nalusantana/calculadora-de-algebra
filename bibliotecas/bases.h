@@ -14,7 +14,9 @@ void mainBases();
 void bases3();
 void bases2();
 void perguntarOpcao();
-void printVetores2(float matriz[2][2]);
-void printVetores3(float matriz[3][3]);
+void printVetores2(double matriz[2][2]);
+void printVetores3(double matriz[3][3]);
+void verificarBases2(double matriz[2][2]);
+void verificarBases3(double matriz[3][3]);
 
 #endif 

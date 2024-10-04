@@ -18,5 +18,6 @@ void mainISB();
 void lerMatriz(int linha, int coluna, double matriz[linha][coluna]);
 double determinante(int n, double matriz[n][n]);
 int calcularPosto(int linha, int coluna, double matriz[linha][coluna]);
+void calcularISB(int dim, double matriz[dim][dim]);
 
 #endif

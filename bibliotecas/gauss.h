@@ -24,5 +24,6 @@ void calcularEliminacaoGauss(int linha, int coluna, double matriz[linha][coluna]
 void imprimirMatrizComoEquacao(int linha, int coluna, double matriz[linha][coluna], int maxI, int maxJ);
 void imprimirMatriz(int linha, int coluna, double matriz[linha][coluna]);
 void inicializarMatriz(int linha, int coluna, double matriz[linha][coluna]);
+void copiarMatrizOriginal(int linhas, int colunas, double copia[linhas][colunas], double original[linhas][colunas]);
 
 #endif 
